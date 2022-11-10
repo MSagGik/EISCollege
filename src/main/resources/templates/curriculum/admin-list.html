@@ -1,0 +1,155 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<div th:replace="common/common :: copy"></div>
+<title>Управление расписанием</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> Титульная страница <span class="c-gray en">&gt;</span> Расписание занятий <span class="c-gray en">&gt;</span> Управление расписанием <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:curriculum.replace(curriculum.href);" title="Обновить" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="deleteBatchIds()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> Удалить </a>
+			<a href="javascript:;" th:onclick="admin_add('Добавить расписание занятий',[[@{/}]]+'curriculum/curriculumAdd','','700')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> Добавить занятие </a></span> <span class="r">Количество занятий <strong id="count" th:text="${curriculumList.size()}">88</strong> </span> </div>
+	<div class="mt-20">
+	<table id="table" class="table table-border table-bordered table-hover table-bg table-sort" style="width: 100%;">
+		<thead>
+		<tr>
+			<th scope="col" colspan="14">Расписание занятий</th>
+		</tr>
+		<tr class="text-c">
+			<th width="21"><input id="checkbox" type="checkbox" name="" value=""></th>
+			<th width="30">ID</th>
+			<th width="140">Предмет</th>
+			<th width="129">Группа</th>
+			<th width="180">Преподаватель</th>
+			<th width="100"><p>Учебный<br style="line-height:30%"><p style="line-height:30%">год</p></th>
+			<th width="100">Семестр</th>
+			<th width="120"><p>Выбор<br style="line-height:30%"><p style="line-height:30%">недели</p></th>
+<!--			<th width="90"><p>До<br style="line-height:30%"><p style="line-height:30%">недели</p></th>-->
+			<th width="85"><p>День<br style="line-height:30%"><p style="line-height:30%">недели</p></th>
+			<th width="100"><p>Порядок<br style="line-height:30%"><p style="line-height:30%">занятия</p></th>
+			<th width="100">Локация</th>
+			<th width="125">Аудитория</th>
+			<th width="105">Изменить</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr class="text-c" th:each="c : ${curriculumList}">
+			<td><input type="checkbox" value="1" th:name="${c.ID}"></td>
+			<td th:text="${c.ID}">1</td>
+			<td th:text="${c.courseName}">1</td>
+			<td th:text="${c.classShortname}">1</td>
+			<td th:text="${c.name}">1</td>
+			<td th:text="${c.schoolYear}">1</td>
+			<td th:if="${c.term==0}"><p>Первый<br style="line-height:30%"><p style="line-height:30%">семестр</p></td>
+			<td th:if="${c.term==1}"><p>Второй<br style="line-height:30%"><p style="line-height:30%">семестр</p></td>
+			<td th:text="${c.startWeek}">1</td>
+<!--			<td th:text="${c.endWeek}">1</td>-->
+			<td th:text="${c.weekday}">1</td>
+			<td th:text="${c.section}">1</td>
+			<td th:text="${c.locationName}">1</td>
+			<td th:text="${c.classRoomNO}">1</td>
+			<td class="td-manage">
+				<a title="Редактировать" href="javascript:;" th:onclick="admin_edit('Редактирование',[[@{/}]]+'curriculum/curriculumUpdate/'+[[${c.ID}]],[[${c.ID}]],'800','700')" class="ml-5" style="text-decoration:none">
+					<i class="Hui-iconfont">&#xe6df;</i>
+				</a>
+				<a title="Удалить" href="javascript:;" th:onclick="admin_del(this,[[${c.ID}]])" class="ml-5" style="text-decoration:none">
+					<i class="Hui-iconfont">&#xe6e2;</i>
+				</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
+<!--Далее идёт логика-->
+<script type="text/javascript" th:src="@{/lib/My97DatePicker/4.8/WdatePicker.js}"></script>
+<script type="text/javascript" th:src="@{/lib/datatables/1.10.15/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/laypage/1.2/laypage.js}"></script>
+<script th:inline="javascript">
+	$('.table-sort').dataTable();
+	var ctxPath = [[@{/}]];
+		/*Расписание занятий - добавлено*/
+		function admin_add(title,url,w,h){
+			layer_show(title,url,w,h);
+		}
+		/*Расписание занятий - удалить*/
+		function admin_del(obj,id){
+			layer.confirm('Вы уверены, что хотите удалить?',{icon: 3, title:'Удаление', btn: ['Выполнить', 'Отмена']},function(index){
+				$.ajax({
+					type: 'POST',
+					url: ctxPath+'curriculum/deleteCurriculumById/',
+					dataType: 'json',
+					data:{'ID':id},
+					success: function(data){
+						console.log(data)
+						if (data.code==100){
+							$(obj).parents("tr").remove();
+							layer.msg('Удалено!',{icon:1,time:1000});
+							setTimeout(function() {
+								window.location.reload();
+							},2000)
+						}
+						if (data.code==500){
+							layer.msg('Удалить не удалось!',{icon:2,time:1000});
+						}
+					},
+					error:function(data) {
+						console.log(data.msg);
+						return
+					},
+				});
+			});
+		}
+
+		/*Расписание занятий - изменить*/
+		function admin_edit(title,url,id,w,h){
+			layer_show(title,url,w,h);
+		}
+
+		function deleteBatchIds () {
+			var ptag_ids = new Array(); //Определить массив для хранения id
+			layer.confirm('Вы уверены, что хотите выполнить удаление?',{icon: 3, title:'Удаление', btn: ['Выполнить', 'Отмена']},function(index){
+				$("#table input[type='checkbox']:checked").each(function() {
+					// let id = $(this).parent().next().eq(0).text()
+					let id = $(this).attr('name');
+					if (!isNaN(id)) {
+						ptag_ids.push(id); // вставить push в массив
+					}
+				});
+				console.log(ptag_ids)
+
+				// Здесь запрашивается фоновая программа, а после успешного выполнения следует обработка переднего плана...
+				$.ajax({
+					type: 'POST',
+					url: ctxPath+'curriculum/deleteBatchIds',
+					dataType: 'json',
+					data:{"ids":JSON.stringify(ptag_ids)},
+					success: function(data){
+						console.log(data)
+						if (data.code==100){
+							layer.msg('Удалено успешно!', {icon: 6,time:1000});
+							setTimeout(function() {
+								window.location.reload();
+							},2000)
+						}
+						if (data.code==500){
+							layer.msg('Удаление выполнить не удалось!',{icon:2,time:1000});
+						}
+					},
+					error:function(data) {
+						console.log(data.msg);
+						return
+					},
+				});
+			});
+        }
+</script>
+</body>
+</html>

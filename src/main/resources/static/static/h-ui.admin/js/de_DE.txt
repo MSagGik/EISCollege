@@ -1,0 +1,18 @@
+{
+	"processing": "Обработка...",
+	"lengthMenu": "Показать _MENU_ на каждой странице",
+	"zeroRecords": "Совпадающих записей не найдено",
+	"sProcessing": "&lt;img src=’./loading.gif’ /&gt;",
+	"info": "Показать _START_ до _END_ общий _TOTAL_ ",
+	"infoEmpty": "0",
+	"infoFiltered": "(Фильтровать из _MAX_ элементов)",
+	"infoPostFix": "",
+	"search": "текущий поиск",
+	"url": "",
+	"paginate": {
+		"first":    "Первая страница",
+		"previous": "Предыдущая страница",
+		"next":     "Следующая страница",
+		"last":     "Последняя страница"
+	}
+}

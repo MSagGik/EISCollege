@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <div th:replace="common/common :: copy"></div>
+    <script th:src="@{/lib/Timetable/Timetables.min.js}"></script>
+    <title>Расписание университета</title>
+    <style>
+        #coursesTable {
+            padding: 15px 10px;
+        }
+
+        .Courses-head {
+            background-color: #edffff;
+        }
+
+        .Courses-head > div {
+            text-align: center;
+            font-size: 14px;
+            line-height: 28px;
+        }
+
+        .left-hand-TextDom, .Courses-head {
+            background-color: #f2f6f7;
+        }
+
+        .Courses-leftHand {
+            background-color: #f2f6f7;
+            font-size: 12px;
+        }
+
+        .Courses-leftHand .left-hand-index {
+            color: #9c9c9c;
+            margin-bottom: 4px !important;
+        }
+
+        .Courses-leftHand .left-hand-name {
+            color: #666;
+        }
+
+        .Courses-leftHand p {
+            text-align: center;
+            font-weight: 900;
+        }
+
+        .Courses-head > div {
+            border-left: none !important;
+        }
+
+        .Courses-leftHand > div {
+            padding-top: 5px;
+            border-bottom: 1px dashed rgb(219, 219, 219);
+        }
+
+        .Courses-leftHand > div:last-child {
+            border-bottom: none !important;
+        }
+
+        .left-hand-TextDom, .Courses-head {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .Courses-content > ul {
+            border-bottom: 1px dashed rgb(219, 219, 219);
+            box-sizing: border-box;
+        }
+
+        .Courses-content > ul:last-child {
+            border-bottom: none !important;
+        }
+
+        .highlight-week {
+            color: #02a9f5 !important;
+        }
+
+        .Courses-content li { /* стиль ячейки расписания */
+            text-align: center;
+            color: #666666;
+            font-size: 12px; /* размер шрифта */
+            line-height: 12px; /* межстрочный интервал */
+        }
+
+        .Courses-content li span {
+            padding: 6px 2px;
+            box-sizing: border-box;
+            line-height: 18px;
+            border-radius: 4px;
+            white-space: normal;
+            word-break: break-all;
+            cursor: pointer;
+        }
+
+        .grid-active {
+            z-index: 9999;
+        }
+
+        .grid-active span {
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* стиль при нажатии на кнопку показа расписания*/
+        .one { /* Внешний вид кнопки */
+            color: #fff; /* Цвет текста */
+            background: #00a2ae; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*box-shadow: 0px 1px 3px; !* Тень *!*/
+        }
+        .one:hover { /* Преображение при наведении */
+            color: #fff; /* Цвет текста */
+            background: #00a2ae; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #fdeaa8,#777); !* Радиальный градиент, переход цвета от центра к краям *!*/
+            -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        }
+        .one:active { /* Преображение при нажатии */
+            color: #fff; /* Цвет текста */
+            background: #006a75; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #fdeaa8,#777); !* Радиальный градиент, переход цвета от центра к краям *!*/
+            -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);        }
+
+    </style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> Титульная страница <span class="c-gray en">&gt;</span> Расписание занятий <span class="c-gray en">&gt;</span> График <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:curriculum.replace(curriculum.href);" title="Обновить"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c">
+        <span  th:if="${session.USER.type==2}">
+            <label for="teacherID">Преподаватель</label>
+            <span class="select-box inline">
+            <select id="teacherID" class="select">
+                <option value="404">Все преподаватели</option>
+                <option th:each="t: ${distinctTeacherID}" th:value="${t.teacherID}" th:text="${t.name}">Все категории</option>
+            </select>
+            </span>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+            <label for="classNO">Группа</label>
+            <span class="select-box inline">
+            <select id="classNO" class="select">
+                <option value="404">Все группы</option>
+                <option th:each="c: ${distinctClassNO}" th:selected="${#dates.format(new java.util.Date().getTime(), 'yyyy')}==${c.classNO}" th:value="${c.classNO}" th:text="${c.classShortname}">Все категории</option>
+            </select>
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </span>
+        <span  th:if="${session.USER.type==0}">
+            <label for="classNO">Студент</label>
+            <span class="select-box inline">
+            <select id="classNO" class="select">
+<!--                <option selected th:value="${session.USER.classNO}" th:text="${session.USER.classNO + ' ' + session.USER.contrastStudentName}">Все категории</option>-->
+                <option selected th:value="${session.USER.classNO}" th:text="${session.USER.contrastStudentName}">Все категории</option>
+            </select>
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </span>
+
+        <span  th:if="${session.USER.type==1}">
+            <label for="teacherID">Преподаватель</label>
+            <span class="select-box inline">
+            <select id="teacherID" class="select">
+<!--                <option checked th:value="${session.USER.contrastTeacherID}" th:text="${session.USER.contrastTeacherID+session.USER.contrastTeacherName}">Все категории</option>-->
+                <option checked th:value="${session.USER.contrastTeacherID}" th:text="${session.USER.contrastTeacherName}">Все категории</option>
+            </select>
+            </span>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </span>
+
+        <label for="schoolYear">Учебный год</label>
+        <span class="select-box inline">
+		<select id="schoolYear" class="select">
+			<option th:each="y: ${distinctSchoolYear}" th:selected="${#dates.format(new java.util.Date().getTime(), 'yyyy')}==${y.schoolYear}" th:value="${y.schoolYear}" th:text="${y.schoolYear}">Все категории</option>
+		</select>
+		</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+
+        <label for="startWeek">Выбор недели</label>
+        <span class="select-box inline">
+		<select id="startWeek" class="select">
+			<option th:each="p: ${distinctStartWeek}" th:selected="${#dates.format(new java.util.Date().getTime(), 'yyyy')}==${p.startWeek}" th:value="${p.startWeek}" th:text="${p.startWeek}">Все категории</option>
+		</select>
+		</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+
+        <label for="term">Семестр</label>
+        <span class="select-box inline">
+		<select id="term" class="select">
+			<option value="0">Первый семестр</option>
+			<option value="1">Второй семестр</option>
+		</select>
+		</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+
+        <button class="one" onclick="onChange()">
+<!--                style="background-color: #00a2ae; color: #fff; padding: 5px 10px; border-radius: 4px;border: none">-->
+            Показать расписание
+        </button>
+    </div>
+    <div id="coursesTable"></div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    // Создание нового двумерного массива
+    let arr = new Array(7)
+    for(let i = 0;i < arr.length;++i){
+        arr[i] = new Array(8)
+    }
+    for(let j = 0; j <arr.length;++j){
+        for (let i = 0; i < arr[j].length; i++) {
+            arr[j][i]=""
+        }
+    }
+    var week = window.innerWidth > 360 ? ['понедельник', 'вторник', 'среда', 'четверг', 'пятница','суббота','воскресение'] :
+        ['один', 'два', 'три', 'четыре', 'пять','шесть','семь'];
+    var day = new Date().getDay();
+    var courseType = [
+        [{index: '1', name: '9.00-10.20'}, 1],
+        [{index: '2', name: '10.30-11.50'}, 1],
+        [{index: '3', name: '12.20-13.40'}, 1],
+        [{index: '4', name: '13.50-15.10'}, 1],
+        [{index: '5', name: '15.20-16.40'}, 1],
+        [{index: '6', name: '16.50-18.10'}, 1],
+        [{index: '7', name: '18.20-19.40'}, 1],
+        [{index: '8', name: '19.50-21.10'}, 1]
+    ];
+
+    // Создание таблицы (инициализировать расписание занятий)
+    var Timetable = new Timetables({
+        el: '#coursesTable',
+        timetables: arr,
+        week: week,
+        timetableType: courseType,
+        highlightWeek: day,
+        gridOnClick: function (e) {
+            alert(e.name + '  ' + e.week + ', ' + e.index + ' занятие, продолжительность ' + e.length + ' академ. час.');
+            console.log(e);
+        },
+        styles: {
+            Gheight: 70, /* высота строки расписания*/
+            // leftHandWidth: 50,
+            // palette: ['#ff6633', '#eeeeee'] /* цвет элементов расписания*/
+        }
+    });
+
+    //изменить расписание
+    function onChange() {
+        var ctxPath = [[@{/}]];
+        let schoolYear=$("#schoolYear").val()
+        let startWeek=$("#startWeek").val()
+        let term=$("#term").val()
+        let classNO=$("#classNO").val()==null?"404":$("#classNO").val()
+        let teacherID=$("#teacherID").val()==null?"404":$("#teacherID").val()
+        $.get(ctxPath+"curriculum/myCurriculum?schoolYear="+schoolYear+"&startWeek="+startWeek+"&term="+term+"&classNO="+classNO+"&teacherID="+teacherID,function(data,status){
+            // создание нового двумерного массива
+            var arr = new Array(7)
+            for(let i = 0;i < arr.length;++i){
+                arr[i] = new Array(8)
+            }
+            for(let j = 0; j <arr.length;++j){
+                for (let i = 0; i < arr[j].length; i++) {
+                    arr[j][i]=""
+                }
+            }
+            if (data.code ==100) {
+                console.log("Данные: " + data + "\nстатус: " + status);
+                var curriculumList = data.curriculumList
+                // создание нового двумерного массива
+                arr = new Array(7)
+                for(let i = 0;i < arr.length;++i){
+                    arr[i] = new Array(8)
+                }
+                for(let j = 0; j <arr.length;++j){
+                    for (let i = 0; i < arr[j].length; i++) {
+                        arr[j][i]=""
+                    }
+                }
+                for (let i = 0; i < curriculumList.length; i++) {
+                    let weekday=curriculumList[i].weekday
+                    let section=curriculumList[i].section
+                    arr[weekday-1][section-1]=curriculumList[i].courseName+"\n("+curriculumList[i].name+")\n"+
+                        curriculumList[i].locationName + ", ауд. " + curriculumList[i].classRoomNO
+                }
+                console.log(arr)
+            }
+            Timetable.setOption({
+                timetables: arr,
+                week: week,
+                timetableType: courseType,
+                highlightWeek: day,
+                gridOnClick: function (e) {
+                    alert(e.name + '  ' + e.week + ', ' + e.index + ' занятие, продолжительность ' + e.length + ' академ. час.');
+                    console.log(e);
+                },
+                styles: {
+                    Gheight: 70 /* высота строки расписания*/
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

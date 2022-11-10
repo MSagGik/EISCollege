@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <div th:replace="common/common :: copy"></div>
+    <title>Управление расписанием</title>
+
+    <style>
+        /* стиль при нажатии на кнопку показа расписания*/
+        .one { /* Внешний вид кнопки */
+            color: #fff; /* Цвет текста */
+            background: #00a2ae; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*box-shadow: 0px 1px 3px; !* Тень *!*/
+        }
+        .one:hover { /* Преображение при наведении */
+            color: #fff; /* Цвет текста */
+            background: #00a2ae; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #fdeaa8,#777); !* Радиальный градиент, переход цвета от центра к краям *!*/
+            -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        }
+        .one:active { /* Преображение при нажатии */
+            color: #fff; /* Цвет текста */
+            background: #006a75; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #fdeaa8,#777); !* Радиальный градиент, переход цвета от центра к краям *!*/
+            -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);        }
+
+        /* стиль при нажатии на кнопку показа расписания*/
+        .two { /* Внешний вид кнопки */
+            color: #fff; /* Цвет текста */
+            background: #006bae; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*box-shadow: 0px 1px 3px; !* Тень *!*/
+        }
+        .two:hover { /* Преображение при наведении */
+            color: #fff; /* Цвет текста */
+            background: #006bae; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #fdeaa8,#777); !* Радиальный градиент, переход цвета от центра к краям *!*/
+            -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        }
+        .two:active { /* Преображение при нажатии */
+            color: #fff; /* Цвет текста */
+            background: #014677; /* Фоновый цвет */
+            padding: 5px 10px; /* Минимальный отступ текста от границ кнопки. Определяет размер кнопки */
+            /*font-size: 20px; !* Размер текста *!*/
+            border-radius: 4px; /* Радиус закругления уголков */
+            border: none;
+            /*background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #fdeaa8,#777); !* Радиальный градиент, переход цвета от центра к краям *!*/
+            -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);        }
+    </style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> Титульная страница <span class="c-gray en">&gt;</span> Расписание занятий <span class="c-gray en">&gt;</span> Управление расписанием <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:curriculum.replace(curriculum.href);" title="Обновить" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <a>&nbsp; &nbsp; &nbsp;Выбрана неделя: &nbsp;</a>
+    <strong><a th:text="${weekChoice}"><span style="color: rgba(0,87,122,0.8);"> Выбранная неделя &nbsp; </span>&nbsp; &nbsp; &nbsp;</a></strong>
+    <a>&nbsp; &nbsp; &nbsp;</a>
+    <a class="one" th:href="@{/curriculum/curriculumListPageWeek}">&nbsp;Назад &nbsp;</a>
+    <div class="text-c">
+        <span class="l">
+            <h3 style="text-align: center;"><span style="color: #00373d;"><strong>Выбор дня недели:</strong></span></h3>
+            <div><p style="text-align: center;"><a class="two" style="text-align: center;" th:href="@{/curriculum/curriculumListPageYear/{week}/{day} (week=${weekChoice}, day=1)}">Понедельник</a></p></div>
+            <div><p style="text-align: center;"><a class="two" style="text-align: center;" th:href="@{/curriculum/curriculumListPageYear/{week}/{day} (week=${weekChoice}, day=2)}">Вторник</a></p></div>
+            <div><p style="text-align: center;"><a class="two" style="text-align: center;" th:href="@{/curriculum/curriculumListPageYear/{week}/{day} (week=${weekChoice}, day=3)}">Среда</a></p></div>
+            <div><p style="text-align: center;"><a class="two" style="text-align: center;" th:href="@{/curriculum/curriculumListPageYear/{week}/{day} (week=${weekChoice}, day=4)}">Четверг</a></p></div>
+            <div><p style="text-align: center;"><a class="two" style="text-align: center;" th:href="@{/curriculum/curriculumListPageYear/{week}/{day} (week=${weekChoice}, day=5)}">Пятница</a></p></div>
+            <div><p style="text-align: center;"><a class="two" style="text-align: center;" th:href="@{/curriculum/curriculumListPageYear/{week}/{day} (week=${weekChoice}, day=6)}">Суббота</a></p></div>
+            <div><p style="text-align: center;"><a class="two" style="text-align: center;" th:href="@{/curriculum/curriculumListPageYear/{week}/{day} (week=${weekChoice}, day=7)}">Воскресение</a></p></div>
+        </span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+html, body{ height:100%}
+body{font-size:14px}
+
+.header1,.header2,.footer{ position:absolute; left:0; right:0}
+.footer{z-index:99; width:100%}
+.header1{top:0; height:60px; z-index:99; width:100%;
+	background: #4285af;
+} /* верхний колонтитул */
+.header2{top:0; height:50px; z-index:100; width:90%;
+	background: url(../images/logo.png) 50% 50% no-repeat;
+	background-size: 70%;
+	/*width: 50px;*/
+} /* верхний колонтитул */
+
+.logotip{position:absolute; width:160px; height: 160px; z-index:3; left:50%; top:50%;  bottom:0; right:0;
+	background:url(../images/logotip.png) no-repeat;
+	background-size: 100%;
+	margin-left:-5%; margin-top:-370px;
+}
+
+
+.loginWraper{ position:absolute;width:100%; left:0; top:0; bottom:0; right:0; z-index:1;
+	/*background:#4285af url(../images/admin-login-bg.jpg) no-repeat center; background-size: cover}*/
+	background: linear-gradient(90deg, #4285af, #009FFF, #fd7d96);
+	/*background: linear-gradient(90deg, #4285af, #a242af, #af6c42, #4faf42) 400% 400% ;*/
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+	transform: translate3d(0, 0, 0);/*верхняя навигация с динамическим градиентом*/
+}
+@keyframes gradient { /* вспомогательная часть динамического градиента */
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+
+	.loginBox{ position:absolute; width:617px; height:330px; background:url(../images/admin-loginform-bg.png) no-repeat; left:50%; top:50%; margin-left:-309px; margin-top:-184px; padding-top:38px}
+	@media (max-width:617px) {
+		.loginbox{ width:100%; position:static; margin-top:0; margin-left:0;}
+	}
+	.loginBox .row{margin-top:20px;}
+	.loginBox .row .form-label .Hui-iconfont{ font-size:24px}
+	.loginBox .input-text{ width:360px}
+@media (max-width:617px) {
+	.loginBox .input-text{ width:80%}
+}
+	.yzm a{ color:#b0c0d1; font-size:12px}
+.footer{ height:46px; line-height:46px; bottom:0; text-align:center; color: #b0c0d1; font-size:12px;
+	background: #405F77;
+	/*background: #3d383e;*/
+/*	background: linear-gradient(90deg, #4285af, #a242af, #af6c42, #4faf42);*/
+/*		background-size: 400% 400%;*/
+/*		animation: gradient 10s ease infinite;*/
+/*		transform: translate3d(0, 0, 0);!*верхняя навигация с динамическим градиентом*!*/
+/*}*/
+/*	@keyframes gradient { !* вспомогательная часть динамического градиента *!*/
+/*		0% {*/
+/*			background-position: 0% 50%;*/
+/*		}*/
+/*		50% {*/
+/*			background-position: 100% 50%;*/
+/*		}*/
+/*		100% {*/
+/*			background-position: 0% 50%;*/
+/*		}*/
+	}
+/* нижний колонтитул */

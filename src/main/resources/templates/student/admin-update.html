@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <div th:replace="common/common :: copy"></div>
+    <title>Управление студентами</title>
+    <meta name="keywords" content="H-ui.admin">
+    <meta name="description" content="H-ui.admin">
+</head>
+<body>
+<article class="page-container">
+    <form class="form form-horizontal" id="form-admin-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>ID студента: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" readonly th:value="${student.studentID}" placeholder="" id="studentID" name="studentID">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>ФИО: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" th:value="${student.name}" placeholder="" id="name" name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>Пол: </label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="sex" type="radio" value="1" id="sex-1" th:field="*{student.sex}" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+                    <label for="sex-1" class="">муж.</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-0" name="sex" value="0" th:field="*{student.sex}" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+                    <label for="sex-0" class="">жен.</label>
+                </div>
+            </div>
+        </div>
+        <div th:if="${session.USER.type==2}" class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>Факультет: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				<select  name="facultyNO" class="select valid" aria-required="true" aria-invalid="false">
+					<option th:each="f : ${facultyList}" th:selected="${f.facultyNO}==${student.facultyNO}" th:value="${f.facultyNO}" th:text="${f.facultyName}">Все типы </option>
+				</select>
+				</span>
+            </div>
+        </div>
+        <div th:if="${session.USER.type!=2}" class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>Факультет: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				<select readonly disabled="disabled"  name="facultyNO" class="select valid" aria-required="true" aria-invalid="false">
+					<option th:each="f : ${facultyList}" th:selected="${f.facultyNO}==${student.facultyNO}" th:value="${f.facultyNO}" th:text="${f.facultyName}">Все типы </option>
+				</select>
+                    <input name="facultyNO" th:value="${student.facultyNO}" type="hidden" class="hidden" >
+				</span>
+            </div>
+        </div>
+<!--        <div class="row cl">-->
+<!--            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>День рождения: </label>-->
+<!--            <div class="formControls col-xs-8 col-sm-9">-->
+<!--                <input type="text" name="birthday" class="input-text datetimepicker-input" th:value="${#dates.format(student.birthday, 'yyyy-MM-dd')}" readonly="" autocomplete="off" id="datetimepicker-demo-7">-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>Группа: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				<select  name="classNO" class="select valid" aria-required="true" aria-invalid="false">
+					<option th:each="c : ${classList}" th:selected="${c.classNO}==${student.classNO}" th:value="${c.classNO}" th:text="${c.classShortname}">Все типы </option>
+				</select>
+				</span>
+            </div>
+        </div>
+<!--        <div class="row cl">-->
+<!--            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>Адрес: </label>-->
+<!--            <div class="formControls col-xs-8 col-sm-9">-->
+<!--                <input type="text" class="input-text" th:value="${student.address}" placeholder="" id="address" name="address">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row cl">-->
+<!--            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>Телефон: </label>-->
+<!--            <div class="formControls col-xs-8 col-sm-9">-->
+<!--                <input type="text" class="input-text" th:value="${student.phone}" placeholder="" id="phone" name="phone">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row cl">-->
+<!--            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>Примечание: </label>-->
+<!--            <div class="formControls col-xs-8 col-sm-9">-->
+<!--                <input type="text" class="input-text" th:value="${student.remark}" placeholder="" id="remark" name="remark">-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input id="submit" class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;Сохранить&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+
+<!--Далее идёт логика-->
+<script type="text/javascript" th:src="@{/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery.validation/1.14.0/messages_zh.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+            var ctxPath = [[@{/}]];
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+        $("#datetimepicker-demo-7").datetimepicker({
+            language: 'ru',
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true,
+            todayBtn: true
+        });
+            $("#form-admin-add").validate({
+                rules: {
+                    studentID: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 16
+                    },
+                    name: {
+                        required: true,
+                    },sex: {
+                        required: true,
+                    // },birthday: {
+                    //     required: true,
+                    },facultyNO: {
+                        required: true,
+                    },classNO: {
+                        required: true,
+                    // },address: {
+                    //     required: true,
+                    // },phone: {
+                    //     required: true,
+                    // },remark: {
+                    //     required: true,
+                    }
+                },
+                onkeyup: false,
+                focusCleanup: true,
+                success: "valid",
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: ctxPath + "student/studentUpdate",
+                        success: function (data) {
+                            console.log(data)
+                            if (data.code == 100) {
+                                layer.msg('Успешно изменено!', {icon: 1, time: 1000});
+                                setTimeout(function() {
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    window.parent.location.reload();
+                                    parent.layer.close(index);
+                                },2000)
+                            }
+                            if (data.code == 500) {
+                                layer.msg('Не получилось отредактировать!', {icon: 2, time: 1000});
+                            }
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('Ошибка!', {icon: 1, time: 1000});
+                        }
+                    });
+
+                }
+            });
+        })
+</script>
+</body>
+</html>

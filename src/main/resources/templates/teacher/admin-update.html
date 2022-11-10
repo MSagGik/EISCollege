@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <div th:replace="common/common :: copy"></div>
+    <title>Управление преподавателями</title>
+    <meta name="keywords" content="H-ui.admin">
+    <meta name="description" content="H-ui.admin">
+</head>
+<body>
+<article class="page-container">
+    <form class="form form-horizontal" id="form-admin-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>ID преподавателя: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" readonly th:value="${teacher.teacherID}" placeholder="" id="teacherID" name="teacherID">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>ФИО: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" th:value="${teacher.name}" placeholder="" id="name" name="name">
+            </div>
+        </div>
+        <div th:if="${session.USER.type==2}" class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>Факультет</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				<select  name="facultyNO" class="select valid" aria-required="true" aria-invalid="false">
+					<option th:each="f : ${facultyList}" th:selected="${f.facultyNO}==${teacher.facultyNO}" th:value="${f.facultyNO}" th:text="${f.facultyName}">Все типы</option>
+				</select>
+				</span>
+            </div>
+        </div>
+        <div th:if="${session.USER.type!=2}" class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>Факультет: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				<select readonly disabled="disabled"  name="facultyNO" class="select valid" aria-required="true" aria-invalid="false">
+					<option th:each="f : ${facultyList}" th:selected="${f.facultyNO}==${teacher.facultyNO}" th:value="${f.facultyNO}" th:text="${f.facultyName}">Все типы </option>
+				</select>
+                    <input name="facultyNO" th:value="${teacher.facultyNO}" type="hidden" class="hidden" >
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>Специализация: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" th:value="${teacher.speciality}" placeholder="" id="speciality" name="speciality">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>Должность:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" th:value="${teacher.title}" placeholder="" id="title" name="title">
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input id="submit" class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;Сохранить&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+
+<!--Далее идёт логика-->
+<script type="text/javascript" th:src="@{/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery.validation/1.14.0/messages_zh.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+            var ctxPath = [[@{/}]];
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+            $("#form-admin-add").validate({
+                rules: {
+                    teacherID: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 16
+                    },
+                    name: {
+                        required: true,
+                    },facultyNO: {
+                        required: true,
+                    },speciality: {
+                        required: true,
+                    },title: {
+                        required: true,
+                    }
+                },
+                onkeyup: false,
+                focusCleanup: true,
+                success: "valid",
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: ctxPath + "teacher/teacherUpdate",
+                        success: function (data) {
+                            console.log(data)
+                            if (data.code == 100) {
+                                layer.msg('Успешно изменено!', {icon: 1, time: 1000});
+                                setTimeout(function() {
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    window.parent.location.reload();
+                                    parent.layer.close(index);
+                                },2000)
+                            }
+                            if (data.code == 500) {
+                                layer.msg('Отредактировать не получилось!', {icon: 2, time: 1000});
+                            }
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('Ошибка!', {icon: 1, time: 1000});
+                        }
+                    });
+
+                }
+            });
+        })
+</script>
+</body>
+</html>

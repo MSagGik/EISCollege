@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="EISCollege88jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fa1b67e6-5ddf-45db-b300-a3b1bbe5ef65" name="Changes" comment="Commit 101122" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2GZcN8fpbEcpCUBrYTfrwEtEWTb" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Сайты/Расписание/Коммерческий/EISCollege/EISCollege&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;44d178f0e15648784c82ad2c31ffff6d&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;,
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Сайты\Расписание\Коммерческий\EISCollege\src\main\resources\static\static\h-ui.admin\images" />
+      <recent name="C:\Users\1\Downloads\Скаченные\timetableSpringBoot-master\EISCollege" />
+      <recent name="C:\Users\1\Downloads\Скаченные\timetableSpringBoot-master\EISCollege\.mvn" />
+      <recent name="C:\Users\1\Downloads\Скаченные\timetableSpringBoot-master\EISCollege\src\main\resources" />
+      <recent name="C:\Users\1\Downloads\Скаченные\timetableSpringBoot-master\EISCollege\src\main\java\com\MSagGik" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.EISCollegeApplication">
+    <configuration name="EISCollege.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/EISCollege.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
+    </configuration>
+    <configuration name="EISCollegeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
+      <module name="EISCollege" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.MSagGik.EISCollege.EISCollegeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Database Script.EISCollege.sql" />
+      <item itemvalue="Spring Boot.EISCollegeApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.EISCollege.sql" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fa1b67e6-5ddf-45db-b300-a3b1bbe5ef65" name="Changes" comment="Commit 101122" />
+      <created>1666599506683</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1666599506683</updated>
+      <workItem from="1666599508989" duration="3984000" />
+      <workItem from="1666698007284" duration="1741000" />
+      <workItem from="1666784327092" duration="81000" />
+      <workItem from="1666942952242" duration="162000" />
+      <workItem from="1668025011892" duration="4325000" />
+      <workItem from="1668060839571" duration="640000" />
+      <workItem from="1668062054667" duration="676000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="Commit one 091122" />
+    <MESSAGE value="Commit one 101122" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit one 101122" />
+  </component>
+</project>

@@ -1,0 +1,30 @@
+server:
+  port: 8080
+#  servlet:
+#    context-path: /education/
+
+# DataSource Config
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/education
+    username: root
+    password: Postgres1!
+  thymeleaf:
+    prefix: classpath:/templates/  #prefix：Указывает каталог, в котором находится шаблон
+    check-template-location: true  #check-tempate-location: Проверьте, существует ли путь к шаблону
+    cache: false  #cache: Кешировать или нет, установите для него значение false в режиме разработки, чтобы избежать перезапуска сервера после изменения шаблона, и установите для него значение true в режиме онлайн, чтобы повысить производительность.
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML5
+    servlet:
+      content-type: text/html
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: false
+
+
+
