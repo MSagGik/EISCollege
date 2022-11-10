@@ -1,0 +1,199 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <div th:replace="common/common :: copy"></div>
+    <title>Система управления учебным процессом</title>
+</head>
+<body>
+<header class="navbar-wrapper">
+    <div class="navbar navbar-fixed-top">
+        <div class="container-fluid cl"><a class="logo navbar-logo f-l mr-10 hidden-xs" th:href="@{/}">ОИС Технологического колледжа</a>
+            <a class="logo navbar-logo-m f-l mr-10 visible-xs" th:href="@{/}">SHF</a>
+            <span class="logo navbar-slogan f-l mr-10 hidden-xs">Бета версия (релиз 1.1) © автор MSagGik</span>
+            <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+            <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+                <ul class="cl">
+                    <li th:if="${session.USER.type==0}">Студент:</li>
+                    <li th:if="${session.USER.type==1}">Преподаватель:</li>
+                    <li th:if="${session.USER.type==2}">Администратор:</li>
+                    <li class="dropDown dropDown_hover">
+                        <a th:if="${session.USER.type==0}" href="#" class="dropDown_A" th:text="${session.USER.contrastStudentName + ', ID: ' + session.USER.contrastStudentID + ', логин: ' + session.USER.username}">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <a th:if="${session.USER.type==1}" href="#" class="dropDown_A" th:text="${session.USER.contrastTeacherName + ', логин: ' + session.USER.username}">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <a th:if="${session.USER.type==2}" href="#" class="dropDown_A" th:text="${session.USER.username}">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <ul class="dropDown-menu menu radius box-shadow">
+                            <li><a th:href="@{/logout}" onclick="window.location.reload();">Выйти</a></li>
+                        </ul>
+                    </li>
+<!--                    иконки писем-->
+<!--                    <li id="Hui-msg"><a href="#" title="Информация"><span class="badge badge-danger">1</span><i-->
+<!--                    class="Hui-iconfont" style="font-size:18px">&#xe60a;</></a></li>-->
+                    <li id="Hui-msg"><a class="Hui-iconfont" style="font-size:18px">&#xe60a;</a></li>
+                    <li id="Hui-skin" class="dropDown right dropDown_hover"><a href="javascript:;" class="dropDown_A"
+                                                                               title="Дизайн страницы"><i class="Hui-iconfont"
+                                                                                             style="font-size:18px">&#xe61d;</i></a>
+                        <ul class="dropDown-menu menu radius box-shadow">
+                            <li><a href="javascript:;" data-val="default" title="Синий">Синий</a></li>
+                            <li><a href="javascript:;" data-val="green" title="Зеленый">Зелёный</a></li>
+                            <li><a href="javascript:;" data-val="red" title="Розовый">Розовый</a></li>
+                            <li><a href="javascript:;" data-val="yellow" title="Оранжевый">Оранжевый</a></li>
+                            <li><a href="javascript:;" data-val="orange" title="Градиент">Градиент</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<aside class="Hui-aside">
+    <div th:if="${session.USER.type==2}" class="menu_dropdown bk_2">
+        <dl id="menu-product">
+            <dt><i class="Hui-iconfont">&#xe6cb;</i> Факультеты <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/faculty/facultyListPage}" data-title="Список факультетов" href="javascript:void(0)">Список факультетов</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-comments">
+            <dt><i class="Hui-iconfont">&#xe643;</i> Корпуса<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/location/locationListPage}" data-title="Список локаций" href="javascript:;">Список корпусов</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-article">
+            <dt><i class="Hui-iconfont">&#xe616;</i> Аудитории<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/classRoom/classRoomListPage}" data-title="Список аудиторий" href="javascript:void(0)">Список аудиторий</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-tongji">
+            <dt><i class="Hui-iconfont">&#xe61a;</i> Предметы<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/course/courseListPage}" data-title="Список предметов" href="javascript:void(0)">Список предметов</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-picture">
+            <dt><i class="Hui-iconfont">&#xe62b;</i> Группы<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/class/classListPage}" data-title="Список групп" href="javascript:void(0)">Список групп</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-student">
+            <dt><i class="Hui-iconfont">&#xe60d;</i> Студенты<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/student/studentListPage}" data-title="Список студентов" href="javascript:;">Все студенты</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-teacher">
+            <dt><i class="Hui-iconfont">&#xe60d;</i> Преподаватели <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/teacher/teacherListPage}" data-title="Список преподавателей" href="javascript:;">Все преподаватели</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-admin">
+            <dt><i class="Hui-iconfont">&#xe62d;</i> Пользователи <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/user/userListPage}" data-title="Список пользователей" href="javascript:void(0)">Все пользователи</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-system">
+            <dt><i class="Hui-iconfont">&#xe62e;</i> Учебный план <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/curriculum/curriculumListPage}" data-title="Расписание занятий" href="javascript:void(0)">Расписание занятий</a></li>
+                    <li><a th:data-href="@{/curriculum/myCurriculumPage}" data-title="График" href="javascript:void(0)">График</a></li>
+                    <li><a th:data-href="@{/curriculum/curriculumListPageWeek}" data-title="Занятия 1 курс" href="javascript:void(0)">Планирование</a></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div th:if="${session.USER.type!=2}" class="menu_dropdown bk_2">
+        <dl id="menu-article2">
+            <dt><i class="Hui-iconfont">&#xe616;</i> Учебный план <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/curriculum/myCurriculumPage}" data-title="Расписание занятий" href="javascript:void(0)">Расписание занятий</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl th:if="${session.USER.type==1}" id="menu-teacher2">
+            <dt><i class="Hui-iconfont">&#xe60d;</i> Личная информация <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/teacher/teacherPage?teacherID=}+${session.USER.contrastTeacherID}" data-title="Анкета" href="javascript:;">Анкета</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl th:if="${session.USER.type==0}" id="menu-student2">
+            <dt><i class="Hui-iconfont">&#xe60d;</i> Личная информация <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/student/studentPage?studentID=}+${session.USER.contrastStudentID}" data-title="Анкета" href="javascript:;">Анкета</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-system2">
+            <dt><i class="Hui-iconfont">&#xe62e;</i> Настройки <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a th:data-href="@{/user/userPage?username=}+${session.USER.username}" data-title="Настройки аккаунта" href="javascript:void(0)">Настройки аккаунта</a></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
+</div>
+<section class="Hui-article-box">
+    <div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
+        <div class="Hui-tabNav-wp">
+            <ul id="min_title_list" class="acrossTab cl">
+                <li class="active">
+                    <span title="Титульная страница" data-href="welcome.html">Титульная страница</span>
+                    <em></em></li>
+            </ul>
+        </div>
+        <div class="Hui-tabNav-more btn-group">
+            <a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a>
+            <a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a>
+        </div>
+    </div>
+    <div id="iframe_box" class="Hui-article">
+        <div class="show_iframe">
+            <div style="display:none" class="loading"></div>
+            <iframe id="iframe-welcome" data-scrolltop="0" scrolling="yes" frameborder="0" th:src="@{/welcome}"></iframe>
+        </div>
+    </div>
+</section>
+
+<div class="contextMenu" id="Huiadminmenu">
+    <ul>
+        <li id="closethis">Закрыть страницу</li>
+        <li id="closeall">Закрыть всё</li>
+    </ul>
+</div>
+<!--Далее пишется скрипт вычислительной логики данной страницы-->
+<script type="text/javascript" th:src="@{lib/jquery.contextmenu/jquery.contextmenu.r2.js}"></script>
+</body>
+</html>
+
